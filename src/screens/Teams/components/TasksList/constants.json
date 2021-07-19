@@ -1,0 +1,6 @@
+{
+    "ITEM_SIZE": 60,
+    "FORM_KEYS": [
+        {"key": "taskName", "type":"text"}
+    ]
+}

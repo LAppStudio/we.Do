@@ -1,0 +1,7 @@
+{
+    "ITEM_SIZE": 60,
+    "FORM_KEYS": [
+        {"key": "name", "type": "text"},
+        {"key": "manager", "type": "text"}
+    ]
+}
