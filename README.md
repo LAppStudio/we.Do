@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# FrontEnd
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Libraries:
 
-## Available Scripts
+- React → Used to create screen elements (screens + components)
+- React Native → Integration of JSX code with native code;
+- Axios → HTTP requests
+- React Redux → Control and centralization of states based on flux pattern
+- Redux Saga → Middleware for redux, which uses generators functions to create synchronous or asynchronous subroutines from an Action shot;
+- Styled Components → Used to create stylized components;
+- React Native Vector Icons → Icon library
 
-In the project directory, you can run:
+---
 
-### `yarn start`
+## Start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Requirements:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node 10.0 >
 
-### `yarn test`
+### Inicialization
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Using Yarn:
 
-### `yarn build`
+```jsx
+$ yarn
+$ yarn start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Using NPM
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```jsx
+$ npm install
+$ npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+# Directories
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+.**src**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- /components: General usage components
+- /containers: Application views
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![images/frontend/Untitled.png](https://github.com/P5-G6/graph-tool/blob/docs/images/Untitled.png)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- / hooks: Custom hooks
+- / mocks: Mocks used to assist in offline development;
+- / services: Functions aimed at using services;
+- / store: Files aimed at configuring Redux and Sagas;
+- / utils: Auxiliary functions of general nature;
+- App.js: where the states of the app are initialized and a call to the navigation flow (in our case, only the Main);
+- Index.js: Where the application base is initialized as written in the DOM;
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Application Flow and General Libraries
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**REDUX** 
 
-### Code Splitting
+- For every container in the application, in this case, "Main". It has its logical block, its reducer;
+This reducer will be responsible for controlling the state of that part of the application. And inside it we will have:
+    - Actions → The actions that, triggered by an action in the View, will be the changes made in the state of the reducer;
+    - Dispatcher → Will be responsible for effecting the change triggered by the action;
+    - Middleware → In our case, Saga is being used, which captures the action, and performs actions, previously subscribed to the saga.
+    - State → The state of our reducer;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![images/frontend/riadAin.gif](https://github.com/P5-G6/graph-tool/blob/docs/images/riadAin.gif)
 
-### Analyzing the Bundle Size
+![images/frontend/Untitled%201.png](https://github.com/P5-G6/graph-tool/blob/docs/images/Untitled%201.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**REDUX SAGA**
 
-### Making a Progressive Web App
+- For greater control of routines, application status and reduction of unwanted renderings. The use of Redux Sagas was chosen, as this library uses generetors functions with the aid of effect functions, which help to use asynchronous actions and trigger other actions in a simplified way;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**STYLED COMPONENTS**
 
-### Advanced Configuration
+- This library is used for a simplified creation of stylized components, thus reducing the number of styling blocks in the logical part of the application and helps to maintain a pattern in the code;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Main standards
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- As the application is based on a recent version of React, they were function Components instead of class Components, as there is the availability of the use of hooks. Thus, lessening the need to use certain existing class-based component conventions;
+- For states of a container (Screen), there is a folder in the same flame redux, where it has a reducer.js and saga.js.
+    - reducer.js → focused on declaring the routines of each action and the state of the application
+    - sagas.js → creation of subroutines of those declared in reducer.js;
+        - At the end of the file, it is possible to find a default export with the call all ActionTypes subscriptions and their subroutines ('<Action> Saga');
+- For supplying components from redux states, the following were used:
+    - connect → Function responsible for injecting data into the component at the time of its declaration;
+    - useSelector → Hook responsible for retrieving the state data for a component variable;
+    - useDispatch → Hook responsible for instantiating a dispatch to a component variable for triggering an action;
+- 'connected <Component>' → This convention is used to inject data into the component without having to declare the states in the component in the "parent" component. In order to avoid unwanted re-renders;
+- For every container in the application, in this case, "Main". It has its logical block, its reducer;
+This reducer will be responsible for controlling the state of that part of the application. And inside it we will have:
+    - Actions → The actions that, triggered by an action in the View, will be the changes made in the state of the reducer;
+    - Dispatcher → Will be responsible for effecting the change triggered by the action;
+    - Middleware → In our case, Saga is being used, which captures the action, and performs actions, previously subscribed to the saga.
+    - State → The state of our reducer;
